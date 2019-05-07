@@ -1,0 +1,6 @@
+1. Is CSV file correct choice for complicated data (string with multiple lines and different 'special' signs)?
+2. Where to put test resources?
+3. Isn't it weird to check if we read file? - Maybe only small file read is sufficient enough so it's ok.
+4. Is it ok to use 'native' setup function in tests? - just a setter.
+5. Read is used only in FilePartReader class - change access to private and test only on readLines? Maybe extracting the file
+reading functionality to its own class and injecting it into the part reader would be a better idea?
