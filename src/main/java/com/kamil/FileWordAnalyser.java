@@ -39,6 +39,9 @@ public class FileWordAnalyser {
     }
 
     private List<String> getWords() throws IOException {
-        return new ArrayList<>(Arrays.asList(filePartReader.readLines().toLowerCase().split("\\s|\n")));
+        return new ArrayList<>(Arrays.asList(filePartReader.readLines()
+                .toLowerCase()
+                .replaceAll("[;:.,!?]", "")
+                .split("\\s|\n")));
     }
 }
