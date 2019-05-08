@@ -4,3 +4,5 @@
 4. Is it ok to use 'native' setup function in tests? - just a setter.
 5. Read is used only in FilePartReader class - change access to private and test only on readLines? Maybe extracting the file
 reading functionality to its own class and injecting it into the part reader would be a better idea?
+6. What about testing private methods? Do we test them through public method? Should it be public? Is there something
+wrong with class design?

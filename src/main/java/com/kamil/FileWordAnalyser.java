@@ -1,12 +1,11 @@
 package com.kamil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileWordAnalyser {
 
@@ -28,8 +27,13 @@ public class FileWordAnalyser {
     }
 
     public List<String> getStringsWhichPalindromes() throws IOException {
-        return getFilteredWords(word -> word.substring(0, word.length() / 2)
-                .equals(word.substring(word.length() / 2 + word.length() % 2)));
+        return getFilteredWords(word -> {
+            String firstPart = word.substring(0, word.length() / 2);
+            String secondPart = new StringBuilder(word.substring(word.length() / 2 + word.length() % 2))
+                    .reverse()
+                    .toString();
+            return firstPart.equals(secondPart);
+        });
     }
 
     private List<String> getFilteredWords(Predicate<String> predicate) throws IOException {
@@ -39,9 +43,9 @@ public class FileWordAnalyser {
     }
 
     private List<String> getWords() throws IOException {
-        return new ArrayList<>(Arrays.asList(filePartReader.readLines()
+        return Stream.of(filePartReader.readLines()
                 .toLowerCase()
                 .replaceAll("[;:.,!?]", "")
-                .split("\\s|\n")));
+                .split("\\s|\n")).distinct().filter(w -> !w.isEmpty()).collect(Collectors.toList());
     }
 }
